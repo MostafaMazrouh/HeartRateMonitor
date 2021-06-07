@@ -88,7 +88,7 @@ extension HRMViewController: CBCentralManagerDelegate {
     case .poweredOn:
       print("central.state is .poweredOn")
       // MARK: - 2) Start scanning for Peripherals
-      // Here we specifically looking for peripherals with Heart Rate service
+      // Here we are specifically looking for peripherals with Heart Rate service
       // We can change the UUID to look for peripherals with other services
       // Or we can set it to nil and get all peripherals around
       // This will call didDiscover delegate method
@@ -98,7 +98,7 @@ extension HRMViewController: CBCentralManagerDelegate {
   
   // MARK: - 3) Here we get a reference to the peripheral
   // Now we stop scanning other for other peripherals
-  // And connect to heartRatePeripheral
+  // And connect centralManager to heartRatePeripheral
   // This will call didConnect delegate method
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
     print("found peripheral: \(peripheral)")
@@ -108,8 +108,8 @@ extension HRMViewController: CBCentralManagerDelegate {
     centralManager.connect(heartRatePeripheral)
   }
   
-  // MARK: - 4) Here the iOS device as a central and the Hart Rate sensor as a peripheral are connected
-  // Now we dicover the Heart Rate Service in the Peripheral
+  // MARK: - 4) Here the iOS device as a central and the Heart Rate sensor as a peripheral are connected
+  // Now we discover the Heart Rate Service in the Peripheral
   // We can discover all available services by setting the array to nil
   // This will call didDiscoverServices delegate method
   func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -137,7 +137,8 @@ extension HRMViewController: CBPeripheralDelegate {
   
   // MARK: - 6) Here we get 2 Characteristics:
   // 1. Body Location Characteristic: has read property for one time read
-  // 2. Heart Rate Measurement Characteristic: has notify property, to notify the iOS device every time the hart rate changes
+  // 2. Heart Rate Measurement Characteristic: has notify property, to notify the iOS device every time the heart rate changes
+  // Now we read the value of each characteristic
   // This will update didUpdateValueFor delegate method
   func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
     
